@@ -40,6 +40,14 @@ describe Turnout::Configuration do
     its(:default_retry_after) { should eql 7200 }
   end
 
+  describe '#public_path' do 
+    its(:public_path) { should eql 'public' }
+  end
+
+  describe '#maintenance_page_file_name' do 
+    its(:maintenance_page_file_name) { should eq 'maintenance' }
+  end
+
   describe '#update' do
     context 'invalid settings' do
       let(:settings) { {bogus: 'blah'} }

@@ -1,7 +1,7 @@
 module Turnout
   class Configuration
     SETTINGS = [:app_root, :named_maintenance_file_paths, :default_maintenance_page, :default_reason,
-                :default_response_code, :default_retry_after]
+                :default_response_code, :default_retry_after, :public_path, :maintenance_page_file_name]
 
     SETTINGS.each do |setting|
       attr_accessor setting
@@ -14,6 +14,8 @@ module Turnout
       @default_reason = "The site is temporarily down for maintenance.\nPlease check back soon."
       @default_response_code = 503
       @default_retry_after = 7200 # 2 hours by default
+      @public_path = "public"
+      @maintenance_page_file_name = "maintenance"
     end
 
     def app_root
