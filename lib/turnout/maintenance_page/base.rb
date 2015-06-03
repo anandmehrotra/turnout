@@ -65,13 +65,16 @@ module Turnout
         File.expand_path("../../../../public/#{filename}", __FILE__)
       end
 
-      def custom_path
-        # Turnout.config.app_root.join('public', filename)
-        Turnout.config.app_root.join(Turnout.config.public_path.to_s, filename)
+      def filename 
+        "maintenance.#{extension}"
       end
 
-      def filename
-        # "maintenance.#{extension}"
+      def custom_path
+        # Turnout.config.app_root.join('public', filename)
+        Turnout.config.app_root.join(Turnout.config.public_path.to_s, custom_filename)
+      end
+
+      def custom_filename
         "#{Turnout.config.maintenance_page_file_name}.#{extension}"
       end
     end
