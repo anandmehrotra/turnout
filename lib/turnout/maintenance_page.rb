@@ -12,9 +12,13 @@ module Turnout
       all_types = all.map(&:media_types).flatten
       best_type = request.best_media_type(all_types)
 
-      best = all.find { |page| page.media_types.include? best_type }
+      if Turnout.config.default_maintenance_page.media_types.include? best_type
+        return Turnout.config.default_maintenance_page
+      else
+        best = all.find { |page| page.media_types.include? best_type }
 
-      best || Turnout.default_maintenance_page
+        return best || Turnout.config.default_maintenance_page
+      end
     end
 
     require 'turnout/maintenance_page/base'
