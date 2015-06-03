@@ -102,7 +102,9 @@ Turnout can be configured in two different ways:
       default_maintenance_page: Turnout::MaintenancePage::JSON,
       default_reason: 'Somebody googled Google!',
       default_response_code: 418,
-      default_retry_after: 3600
+      default_retry_after: 3600,
+      public_path: 'public/my_maintenance_page_files'
+      maintenance_page_file_name: 'my_maintenance_page'
     ```
 
 2. __Using a config block__
@@ -115,6 +117,8 @@ Turnout can be configured in two different ways:
       config.default_reason = 'Somebody googled Google!'
       config.default_response_code = 418
       config.default_retry_after = 3600
+      config.public_path = 'public/my_maintenance_page_files'
+      config.maintenance_page_file_name = 'my_maintenance_page'
     end
     ```
 
@@ -131,6 +135,8 @@ Turnout.configure do |config|
   config.default_reason = "The site is temporarily down for maintenance.\nPlease check back soon."
   config.default_response_code = 503
   config.default_retry_after = 7200
+  config.public_path = 'public'
+  config.maintenance_page_file_name = 'maintenance'
 end
 ```
 
@@ -138,6 +144,10 @@ Customization
 =============
 
 [Default maintenance pages](https://github.com/biola/turnout/blob/master/public/) are provided, but you can create your own `public/maintenance.[html|json]` files instead. If you provide a `reason` to the rake task, Turnout will parse the maintenance page file and attempt to replace a [Liquid](http://liquidmarkup.org/)-style `{{ reason }}` tag with the provided reason. So be sure to include a `{{ reason }}` tag in your `maintenance.html` file.
+
+The provided reason gets wrapped with `<p>` tags. If you don't want this, you can customize it by implementing your own  class under the Turnout::MaintenancePage module and overriding `reason`. Then you would set the config like:
+
+`config.default_maintenance_page = Turnout::MaintenancePage::HTMLCustom` or whatever class name you createa.
 
 Tips
 ====
